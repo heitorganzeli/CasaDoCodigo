@@ -13,6 +13,8 @@ import java.util.List;
 
 import br.com.caelum.casadocodigo.R;
 import br.com.caelum.casadocodigo.modelo.Livro;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LivroAdapter extends RecyclerView.Adapter {
     private final List<Livro> livros;
@@ -34,17 +36,17 @@ public class LivroAdapter extends RecyclerView.Adapter {
         return new MyViewHoler(v);
     }
 
-    private class MyViewHoler extends ViewHolder {
+    class MyViewHoler extends ViewHolder {
 
+        @BindView(R.id.item_livro_nome)
         TextView nome;
+        @BindView(R.id.item_livro_foto)
         ImageView foto;
 
         public MyViewHoler(@NonNull View itemView) {
             super(itemView);
 
-            nome = itemView.findViewById(R.id.item_livro_nome);
-            foto = itemView.findViewById(R.id.item_livro_foto);
-
+            ButterKnife.bind(this, itemView);
         }
     }
 

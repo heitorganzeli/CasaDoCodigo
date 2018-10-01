@@ -18,13 +18,21 @@ import br.com.caelum.casadocodigo.R;
 import br.com.caelum.casadocodigo.adapter.LivroAdapter;
 import br.com.caelum.casadocodigo.modelo.Autor;
 import br.com.caelum.casadocodigo.modelo.Livro;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ListaLivrosFragment extends Fragment {
+
+    @BindView(R.id.lista_livros)
+    RecyclerView lista;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_lista_livro, container, false);
+
+        ButterKnife.bind(this, view);
 
         List<Livro> livros = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
@@ -34,9 +42,8 @@ public class ListaLivrosFragment extends Fragment {
             livros.add(livro);
         }
 
-        RecyclerView rv = view.findViewById(R.id.lista_livros);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setAdapter(new LivroAdapter(livros));
+        lista.setLayoutManager(new LinearLayoutManager(getContext()));
+        lista.setAdapter(new LivroAdapter(livros));
 
         return view;
     }
