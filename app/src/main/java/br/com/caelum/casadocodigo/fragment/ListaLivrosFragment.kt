@@ -1,6 +1,7 @@
 package br.com.caelum.casadocodigo.fragment
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,8 +12,11 @@ import br.com.caelum.casadocodigo.R
 import br.com.caelum.casadocodigo.adapter.ListLivroAdapter
 import br.com.caelum.casadocodigo.modelo.Autor
 import br.com.caelum.casadocodigo.modelo.Livro
+import br.com.caelum.casadocodigo.server.WebClient
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.mugen.Mugen
+import com.mugen.MugenCallbacks
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,21 +37,45 @@ class ListaLivrosFragment: Fragment(){
         }
     }
 
+    private var carregando: Boolean = false
+    private lateinit var livros: ArrayList<Livro>
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_lista_livro, container, false)
 
         ButterKnife.bind(this, view)
 
 
-        val livros = arguments!!.getSerializable("livros") as ArrayList<Livro>
+        livros = arguments!!.getSerializable("livros") as ArrayList<Livro>
 
         lista.layoutManager = LinearLayoutManager(context)
         lista.adapter = ListLivroAdapter(livros)
 
+        Mugen.with(lista, object : MugenCallbacks {
+            override fun isLoading(): Boolean {
+                return carregando;
+            }
+
+            override fun hasLoadedAllItems(): Boolean {
+                return false;
+            }
+
+            override fun onLoadMore() {
+                WebClient().getLivros(livros.size, 5)
+                carregando = true
+
+                Snackbar.make(lista, "Carregando mais livros", Snackbar.LENGTH_SHORT).show()
+            }
+        }).start()
+
         return view
     }
 
-
+    fun adicionaLivros(livros: List<Livro>) {
+        carregando=false;
+        this.livros.addAll(livros)
+        lista.adapter!!.notifyDataSetChanged()
+    }
 
 
 }

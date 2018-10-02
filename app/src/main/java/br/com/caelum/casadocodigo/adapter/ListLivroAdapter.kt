@@ -36,7 +36,7 @@ class ListLivroAdapter (val livros: List<Livro>): RecyclerView.Adapter<ListLivro
         val livro = livros[i]
         viewHolder.nome.setText(livro.nome)
 
-        Picasso.get().load(livro.urlFoto).into(viewHolder.foto)
+        Picasso.get().load(livro.urlFoto).fit().into(viewHolder.foto)
     }
 
     override fun getItemViewType(position: Int): Int {

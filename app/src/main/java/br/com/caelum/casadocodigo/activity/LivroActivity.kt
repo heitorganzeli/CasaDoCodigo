@@ -3,7 +3,6 @@ package br.com.caelum.casadocodigo.activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import br.com.caelum.casadocodigo.R
 import br.com.caelum.casadocodigo.fragment.DetalhesLivroFragment
 import br.com.caelum.casadocodigo.fragment.ListaLivrosFragment
@@ -21,11 +20,9 @@ class LivroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            WebClient().getLivros()
+            WebClient().getLivros(0, 5)
             exibe(LoadingFragment(), false)
         }
-
-
     }
 
     override fun onResume() {
@@ -50,7 +47,12 @@ class LivroActivity : AppCompatActivity() {
 
     @Subscribe
     fun lidaComSucesso(livros: List<Livro>) {
-        exibe(ListaLivrosFragment.com(livros), false)
+        var fragment = supportFragmentManager.findFragmentById(R.id.frame_principal)
+
+        when (fragment) {
+            is ListaLivrosFragment -> fragment.adicionaLivros(livros)
+            else -> exibe(ListaLivrosFragment.com(livros), false)
+        }
     }
 
     private fun exibe(fragment: Fragment, empilha: Boolean) {

@@ -13,7 +13,7 @@ class WebClient {
         const val SERVER_URL = "http://cdcmob.herokuapp.com/"
     }
 
-    fun getLivros() {
+    fun getLivros(indicePrimeiroLivro: Int, qtdLivros: Int) {
         val client = Retrofit.Builder()
                 .baseUrl(SERVER_URL)
                 .addConverterFactory(LivroServiceConverterFactory())
@@ -21,7 +21,7 @@ class WebClient {
 
         val service = client.create(LivroService::class.java)
 
-        val call = service.listaLivros()
+        val call = service.listaLivros(indicePrimeiroLivro, qtdLivros)
 
         call.enqueue(object : Callback<List<Livro>> {
             override fun onFailure(call: Call<List<Livro>>?, t: Throwable?) {
