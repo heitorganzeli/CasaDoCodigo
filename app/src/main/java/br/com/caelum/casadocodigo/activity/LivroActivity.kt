@@ -40,9 +40,9 @@ class LivroActivity : AppCompatActivity() {
         return when (item!!.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                false
+                true
             }
-            else -> true
+            else -> super.onOptionsItemSelected(item)
         }
 
     }
