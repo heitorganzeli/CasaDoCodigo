@@ -1,8 +1,10 @@
 package br.com.caelum.casadocodigo.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.MenuItem
 import br.com.caelum.casadocodigo.R
 import br.com.caelum.casadocodigo.fragment.DetalhesLivroFragment
@@ -36,10 +38,20 @@ class LivroActivity : AppCompatActivity() {
         EventBus.getDefault().unregister(this)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.livros_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item!!.itemId) {
             android.R.id.home -> {
                 onBackPressed()
+                true
+            }
+            R.id.livros_menu_carrinho -> {
+                val intent = Intent(this, CarrinhoActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
