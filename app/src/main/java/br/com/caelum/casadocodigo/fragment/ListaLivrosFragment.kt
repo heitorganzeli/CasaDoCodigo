@@ -14,30 +14,40 @@ import br.com.caelum.casadocodigo.modelo.Livro
 import butterknife.BindView
 import butterknife.ButterKnife
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ListaLivrosFragment: Fragment(){
 
     @BindView(R.id.lista_livros)
     internal lateinit var lista: RecyclerView
 
+    companion object {
+        @JvmStatic fun com(livros: List<Livro>): ListaLivrosFragment {
+            val comLivros = ListaLivrosFragment()
+
+            val livrosBundle = Bundle()
+            livrosBundle.putSerializable("livros", ArrayList(livros))
+            comLivros.arguments = livrosBundle
+
+            return comLivros
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_lista_livro, container, false)
 
         ButterKnife.bind(this, view)
 
-        val livros = ArrayList<Livro>()
-        for (i in 0..19) {
-            val autor = Autor()
-            autor.nome = "Autor $i"
-            val livro = Livro("Livro $i", "Descrição $i", Arrays.asList(autor))
-            livros.add(livro)
-        }
+
+        val livros: List<Livro> = arguments!!.getSerializable("livros") as ArrayList<Livro>
 
         lista.layoutManager = LinearLayoutManager(context)
         lista.adapter = ListLivroAdapter(livros)
 
         return view
     }
+
+
 
 
 }
