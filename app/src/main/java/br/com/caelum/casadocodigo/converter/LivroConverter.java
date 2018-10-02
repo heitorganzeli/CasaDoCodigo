@@ -131,9 +131,9 @@ public class LivroConverter {
         livro.setDescricao(objectLivro.getString(DESCRICAO_LIVRO));
         livro.setDataPublicacao(objectLivro.getString(DATA_PUBLICACAO));
         if (objectLivro.has(ISBN)) {
-            livro.setISBN(objectLivro.getString(ISBN));
+            livro.setIsbn(objectLivro.getString(ISBN));
         } else {
-            livro.setISBN(objectLivro.getString("ISBN"));
+            livro.setIsbn(objectLivro.getString("ISBN"));
         }
         livro.setNumPaginas(objectLivro.getInt(NUMERO_PAGINAS));
         livro.setValorFisico(objectLivro.getDouble(VALOR_FISICO));
