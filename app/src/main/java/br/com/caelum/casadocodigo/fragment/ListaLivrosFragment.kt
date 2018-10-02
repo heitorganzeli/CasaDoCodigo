@@ -1,8 +1,10 @@
 package br.com.caelum.casadocodigo.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -69,6 +71,14 @@ class ListaLivrosFragment: Fragment(){
         }).start()
 
         return view
+    }
+
+    @SuppressLint("RestrictedApi")
+    override fun onResume() {
+        super.onResume()
+        var activity: AppCompatActivity = activity as AppCompatActivity
+        activity.supportActionBar!!.title = "Catálogo"
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 
     fun adicionaLivros(livros: List<Livro>) {

@@ -3,6 +3,7 @@ package br.com.caelum.casadocodigo.activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import br.com.caelum.casadocodigo.R
 import br.com.caelum.casadocodigo.fragment.DetalhesLivroFragment
 import br.com.caelum.casadocodigo.fragment.ListaLivrosFragment
@@ -33,6 +34,17 @@ class LivroActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         EventBus.getDefault().unregister(this)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item!!.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                false
+            }
+            else -> true
+        }
+
     }
 
     @Subscribe

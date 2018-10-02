@@ -1,7 +1,9 @@
 package br.com.caelum.casadocodigo.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,12 +40,25 @@ class DetalhesLivroFragment : Fragment() {
     @BindView(R.id.detalhes_livro_comprar_ebook)
     internal lateinit var botaoComprarEbook: Button
 
+    internal lateinit var livro: Livro
+
+    @SuppressLint("RestrictedApi")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.livro = recuperaLivro()
+        val activity: AppCompatActivity = activity as AppCompatActivity
+        activity.supportActionBar!!.title = livro.nome
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun recuperaLivro(): Livro {
+        return arguments!!.getSerializable("livro") as Livro
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_detalhes_livro, container, false)
 
         ButterKnife.bind(this, view)
-
-        val livro = arguments!!.getSerializable("livro") as Livro
 
         populaCamposCom(livro)
 
