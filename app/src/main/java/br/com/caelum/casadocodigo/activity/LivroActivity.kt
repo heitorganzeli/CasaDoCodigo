@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import br.com.caelum.casadocodigo.R
-import br.com.caelum.casadocodigo.delegate.LivroDelegate
 import br.com.caelum.casadocodigo.fragment.DetalhesLivroFragment
 import br.com.caelum.casadocodigo.fragment.ListaLivrosFragment
+import br.com.caelum.casadocodigo.fragment.ServiceErroFragment
 import br.com.caelum.casadocodigo.modelo.Livro
 import br.com.caelum.casadocodigo.server.WebClient
 import org.greenrobot.eventbus.EventBus
@@ -40,7 +40,7 @@ class LivroActivity : AppCompatActivity() {
 
     @Subscribe
     fun lidaComErro(erro: Throwable) {
-        Toast.makeText(this, "Não foi possivel carregar os livros: ${erro.message}", Toast.LENGTH_SHORT).show()
+       exibe(ServiceErroFragment.com(erro), false)
     }
 
     @Subscribe

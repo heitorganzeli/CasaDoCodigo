@@ -1,14 +1,12 @@
 package br.com.caelum.casadocodigo.server
 
 import br.com.caelum.casadocodigo.converter.LivroServiceConverterFactory
-import br.com.caelum.casadocodigo.delegate.LivroDelegate
 import br.com.caelum.casadocodigo.modelo.Livro
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import java.lang.RuntimeException
 
 class WebClient {
     companion object {

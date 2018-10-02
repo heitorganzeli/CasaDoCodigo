@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import br.com.caelum.casadocodigo.R
-import br.com.caelum.casadocodigo.delegate.LivroDelegate
 import br.com.caelum.casadocodigo.modelo.Livro
 import butterknife.BindView
 import butterknife.ButterKnife
