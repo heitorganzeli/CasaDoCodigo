@@ -54,10 +54,9 @@ class ListLivroAdapter (val livros: List<Livro>): RecyclerView.Adapter<ListLivro
         }
 
         @OnClick
-        fun onItemClick(view: View) {
+        fun onItemClick() {
             val livro = livros.get(adapterPosition)
             EventBus.getDefault().post(livro)
-
         }
     }
 }
