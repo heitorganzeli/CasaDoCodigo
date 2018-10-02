@@ -12,6 +12,7 @@ import br.com.caelum.casadocodigo.modelo.Livro
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import org.greenrobot.eventbus.EventBus
 
 class ListLivroAdapter (val livros: List<Livro>): RecyclerView.Adapter<ListLivroAdapter.ViewHolder>() {
 
@@ -52,12 +53,8 @@ class ListLivroAdapter (val livros: List<Livro>): RecyclerView.Adapter<ListLivro
 
         @OnClick
         fun onItemClick(view: View) {
-
             val livro = livros.get(adapterPosition)
-            val delegate = view.context as LivroDelegate
-
-            delegate.lidaCom(livro)
+            EventBus.getDefault().post(livro)
         }
     }
-
 }

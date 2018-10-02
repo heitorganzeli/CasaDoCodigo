@@ -39,7 +39,7 @@ class ListaLivrosFragment: Fragment(){
         ButterKnife.bind(this, view)
 
 
-        val livros: List<Livro> = arguments!!.getSerializable("livros") as ArrayList<Livro>
+        val livros = arguments!!.getSerializable("livros") as ArrayList<Livro>
 
         lista.layoutManager = LinearLayoutManager(context)
         lista.adapter = ListLivroAdapter(livros)
