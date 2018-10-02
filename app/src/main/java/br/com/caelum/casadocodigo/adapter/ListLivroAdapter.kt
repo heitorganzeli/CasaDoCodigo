@@ -11,6 +11,7 @@ import br.com.caelum.casadocodigo.modelo.Livro
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.squareup.picasso.Picasso
 import org.greenrobot.eventbus.EventBus
 
 class ListLivroAdapter (val livros: List<Livro>): RecyclerView.Adapter<ListLivroAdapter.ViewHolder>() {
@@ -34,6 +35,8 @@ class ListLivroAdapter (val livros: List<Livro>): RecyclerView.Adapter<ListLivro
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val livro = livros[i]
         viewHolder.nome.setText(livro.nome)
+
+        Picasso.get().load(livro.urlFoto).into(viewHolder.foto)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -54,6 +57,7 @@ class ListLivroAdapter (val livros: List<Livro>): RecyclerView.Adapter<ListLivro
         fun onItemClick(view: View) {
             val livro = livros.get(adapterPosition)
             EventBus.getDefault().post(livro)
+
         }
     }
 }

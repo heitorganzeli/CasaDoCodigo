@@ -7,6 +7,7 @@ import android.widget.Toast
 import br.com.caelum.casadocodigo.R
 import br.com.caelum.casadocodigo.fragment.DetalhesLivroFragment
 import br.com.caelum.casadocodigo.fragment.ListaLivrosFragment
+import br.com.caelum.casadocodigo.fragment.LoadingFragment
 import br.com.caelum.casadocodigo.fragment.ServiceErroFragment
 import br.com.caelum.casadocodigo.modelo.Livro
 import br.com.caelum.casadocodigo.server.WebClient
@@ -19,8 +20,12 @@ class LivroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             WebClient().getLivros()
+            exibe(LoadingFragment(), false)
+        }
+
+
     }
 
     override fun onResume() {

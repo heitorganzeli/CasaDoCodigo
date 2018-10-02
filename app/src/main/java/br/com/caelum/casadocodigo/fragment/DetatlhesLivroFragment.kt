@@ -12,6 +12,7 @@ import br.com.caelum.casadocodigo.R
 import br.com.caelum.casadocodigo.modelo.Livro
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.squareup.picasso.Picasso
 
 class DetalhesLivroFragment : Fragment() {
 
@@ -77,6 +78,7 @@ class DetalhesLivroFragment : Fragment() {
         val textoComprarAmbos = String.format("Comprar ambos - R$ %.2f", livro.valorDoisJuntos)
         botaoComprarAmbos.text = textoComprarAmbos
 
+        Picasso.get().load(livro.urlFoto).into(foto)
     }
 
     companion object {
