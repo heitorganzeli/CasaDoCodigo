@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "354147112818",
+    "firebase_url": "https://casadocodigo-9df04.firebaseio.com",
+    "project_id": "casadocodigo-9df04",
+    "storage_bucket": "casadocodigo-9df04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354147112818:android:08f5d5a6ab325096",
+        "android_client_info": {
+          "package_name": "br.com.heitorganzeli.casadocodigo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354147112818-hkft75heo3ln3bpri4uvpg627jsldeic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.heitorganzeli.casadocodigo",
+            "certificate_hash": "73dbf6a98d763b4f5729d41a6b0d564371820926"
+          }
+        },
+        {
+          "client_id": "354147112818-88voclots343kq8q31f3j1los01jj0v3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGsSp-NkLqzmRYLREMIzEky8ISNZqTUCg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354147112818-88voclots343kq8q31f3j1los01jj0v3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
