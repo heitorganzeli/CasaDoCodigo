@@ -47,6 +47,7 @@ class LoginActivity: AppCompatActivity() {
     private fun vaiParaListaLivros() {
         val intent = Intent(this, LivroActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     @OnClick(R.id.login_novo)
