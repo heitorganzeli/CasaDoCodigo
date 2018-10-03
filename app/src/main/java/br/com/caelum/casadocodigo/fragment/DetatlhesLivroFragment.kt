@@ -2,6 +2,7 @@ package br.com.caelum.casadocodigo.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import br.com.caelum.casadocodigo.R
 import br.com.caelum.casadocodigo.application.CasaDoCodigoApplication
@@ -38,6 +40,8 @@ class DetalhesLivroFragment : Fragment() {
     internal lateinit var numPaginas: TextView
     @BindView(R.id.detalhes_livro_data_publicacao)
     internal lateinit var dataPublicacao: TextView
+    @BindView(R.id.detalhes_livro_main)
+    internal lateinit var mainView: ScrollView
 
     @BindView(R.id.detalhes_livro_comprar_fisico)
     internal lateinit var botaoComprarFisico: Button
@@ -72,7 +76,6 @@ class DetalhesLivroFragment : Fragment() {
 
         populaCamposCom(livro)
 
-
         return view
     }
 
@@ -80,6 +83,9 @@ class DetalhesLivroFragment : Fragment() {
             R.id.detalhes_livro_comprar_ebook,
             R.id.detalhes_livro_comprar_fisico)
     fun comprar(view: View) {
+
+        Snackbar.make(mainView, "Item adicionado ao carrinho", Snackbar.LENGTH_SHORT).show()
+
         carrinho.adiciona(Item(livro, when (view.id) {
             R.id.detalhes_livro_comprar_ambos -> TipoDeCompra.JUNTOS
             R.id.detalhes_livro_comprar_ebook -> TipoDeCompra.VIRTUAL
