@@ -35,6 +35,6 @@ class CarrinhoActivity: AppCompatActivity() {
         itensCarrinho.adapter = ItensAdapter(carrinho.getItens(), this)
         itensCarrinho.layoutManager = LinearLayoutManager(this)
 
-        valor.text = "R$ ${carrinho.calculaValor()}"
+        valor.text = carrinho.getValor()
     }
 }

@@ -2,6 +2,8 @@ package br.com.caelum.casadocodigo.modelo
 
 import java.io.Serializable
 import java.math.BigDecimal
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.util.*
 
 class Carrinho : Serializable {
@@ -33,6 +35,12 @@ class Carrinho : Serializable {
 
         valorFinal = valorFinal.setScale(2, BigDecimal.ROUND_HALF_UP)
         return valorFinal
+    }
+
+    fun getValor(): String {
+        val format: NumberFormat = DecimalFormat.getCurrencyInstance(Locale("pt", "BR"))
+
+        return format.format(calculaValor())
     }
 
 }

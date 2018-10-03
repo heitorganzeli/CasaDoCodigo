@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.caelum.casadocodigo.R;
 import br.com.caelum.casadocodigo.modelo.Item;
@@ -20,6 +23,7 @@ public class ItensAdapter extends RecyclerView.Adapter {
 
     private List<Item> items;
     private Context context;
+    private NumberFormat formater = DecimalFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
     public ItensAdapter(List<Item> items, Context context) {
 
@@ -55,13 +59,13 @@ public class ItensAdapter extends RecyclerView.Adapter {
 
         switch (tipoDeCompra) {
             case FISICO:
-                return String.format("R$ %.2f", item.getLivro().getValorFisico());
+                return formater.format(item.getLivro().getValorFisico());
 
             case VIRTUAL:
-                return String.format("R$ %.2f", item.getLivro().getValorVirtual());
+                return formater.format(item.getLivro().getValorVirtual());
 
             default:
-                return String.format("R$ %.2f", item.getLivro().getValorDoisJuntos());
+                return formater.format(item.getLivro().getValorDoisJuntos());
 
         }
 
