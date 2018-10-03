@@ -16,6 +16,7 @@ import br.com.heitorganzeli.casadocodigo.modelo.Livro
 import br.com.heitorganzeli.casadocodigo.server.WebClient
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.mugen.Mugen
 import com.mugen.MugenCallbacks
 import kotlin.collections.ArrayList
@@ -24,6 +25,8 @@ class ListaLivrosFragment: Fragment(){
 
     @BindView(R.id.lista_livros)
     internal lateinit var lista: RecyclerView
+
+    lateinit var remoteConfig: FirebaseRemoteConfig
 
     companion object {
         @JvmStatic fun com(livros: List<Livro>): ListaLivrosFragment {
@@ -49,7 +52,7 @@ class ListaLivrosFragment: Fragment(){
         livros = arguments!!.getSerializable("livros") as ArrayList<Livro>
 
         lista.layoutManager = LinearLayoutManager(context)
-        lista.adapter = ListLivroAdapter(livros)
+
 
         Mugen.with(lista, object : MugenCallbacks {
             override fun isLoading(): Boolean {
@@ -71,12 +74,29 @@ class ListaLivrosFragment: Fragment(){
         return view
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        remoteConfig = FirebaseRemoteConfig.getInstance()
+        remoteConfig.setDefaults(R.xml.remote_config)
+
+        remoteConfig.fetch(5).addOnCompleteListener {
+            if (it.isSuccessful) {
+                remoteConfig.activateFetched()
+            }
+        }
+    }
+
+
     @SuppressLint("RestrictedApi")
     override fun onResume() {
         super.onResume()
         var activity: AppCompatActivity = activity as AppCompatActivity
         activity.supportActionBar!!.title = "Catálogo"
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
+
+
+        lista.adapter = ListLivroAdapter(livros, remoteConfig.getBoolean("alt_layout"))
     }
 
     fun adicionaLivros(livros: List<Livro>) {

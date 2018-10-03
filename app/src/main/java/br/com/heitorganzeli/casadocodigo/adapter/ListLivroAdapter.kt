@@ -14,12 +14,12 @@ import butterknife.OnClick
 import com.squareup.picasso.Picasso
 import org.greenrobot.eventbus.EventBus
 
-class ListLivroAdapter (val livros: List<Livro>): RecyclerView.Adapter<ListLivroAdapter.ViewHolder>() {
+class ListLivroAdapter (val livros: List<Livro>, val aternativeLayout: Boolean): RecyclerView.Adapter<ListLivroAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         var tipoDeLayout = R.layout.item_livro_par
-        if (i % 2 != 0) {
+        if ( i % 2 != 0 && !aternativeLayout || i % 2 == 0 && aternativeLayout) {
             tipoDeLayout = R.layout.item_livro_impar
         }
 
