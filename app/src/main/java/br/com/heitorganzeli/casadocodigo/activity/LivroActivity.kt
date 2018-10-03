@@ -13,6 +13,7 @@ import br.com.heitorganzeli.casadocodigo.fragment.LoadingFragment
 import br.com.heitorganzeli.casadocodigo.fragment.ServiceErroFragment
 import br.com.heitorganzeli.casadocodigo.modelo.Livro
 import br.com.heitorganzeli.casadocodigo.server.WebClient
+import com.google.firebase.auth.FirebaseAuth
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -51,6 +52,12 @@ class LivroActivity : AppCompatActivity() {
             }
             R.id.livros_menu_carrinho -> {
                 val intent = Intent(this, CarrinhoActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.livros_menu_sair -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 true
             }

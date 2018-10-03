@@ -6,4 +6,8 @@
         android:icon="@drawable/carrinho_vazio"
         android:title="Carrinho"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/livros_menu_sair"
+        android:title="Sair"
+        app:showAsAction="never" />
 </menu>
