@@ -40,9 +40,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation ('com.vinaysshenoy:mugen:1.0.3'){
+    implementation('com.vinaysshenoy:mugen:1.0.3') {
         exclude module: 'support-v4'
     }
+
+    implementation 'com.google.dagger:dagger:2.17'
+    kapt 'com.google.dagger:dagger-compiler:2.17'
 }
 repositories {
     mavenCentral()

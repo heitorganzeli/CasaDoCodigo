@@ -11,10 +11,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import br.com.caelum.casadocodigo.R
+import br.com.caelum.casadocodigo.application.CasaDoCodigoApplication
+import br.com.caelum.casadocodigo.modelo.Carrinho
+import br.com.caelum.casadocodigo.modelo.Item
 import br.com.caelum.casadocodigo.modelo.Livro
+import br.com.caelum.casadocodigo.modelo.TipoDeCompra
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 class DetalhesLivroFragment : Fragment() {
 
@@ -40,6 +46,9 @@ class DetalhesLivroFragment : Fragment() {
     @BindView(R.id.detalhes_livro_comprar_ebook)
     internal lateinit var botaoComprarEbook: Button
 
+    @Inject
+    lateinit var carrinho: Carrinho
+
     internal lateinit var livro: Livro
 
     @SuppressLint("RestrictedApi")
@@ -58,11 +67,24 @@ class DetalhesLivroFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_detalhes_livro, container, false)
 
+        CasaDoCodigoApplication.instance.component.inject(this)
         ButterKnife.bind(this, view)
 
         populaCamposCom(livro)
 
+
         return view
+    }
+
+    @OnClick(R.id.detalhes_livro_comprar_ambos,
+            R.id.detalhes_livro_comprar_ebook,
+            R.id.detalhes_livro_comprar_fisico)
+    fun comprar(view: View) {
+        carrinho.adiciona(Item(livro, when (view.id) {
+            R.id.detalhes_livro_comprar_ambos -> TipoDeCompra.JUNTOS
+            R.id.detalhes_livro_comprar_ebook -> TipoDeCompra.VIRTUAL
+            else -> TipoDeCompra.FISICO
+        }))
     }
 
     private fun populaCamposCom(livro: Livro) {
