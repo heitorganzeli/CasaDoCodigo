@@ -2,10 +2,13 @@ package br.com.heitorganzeli.casadocodigo.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import br.com.heitorganzeli.casadocodigo.R
 import br.com.heitorganzeli.casadocodigo.fragment.DetalhesLivroFragment
 import br.com.heitorganzeli.casadocodigo.fragment.ListaLivrosFragment
@@ -14,8 +17,10 @@ import br.com.heitorganzeli.casadocodigo.fragment.ServiceErroFragment
 import br.com.heitorganzeli.casadocodigo.modelo.Livro
 import br.com.heitorganzeli.casadocodigo.server.WebClient
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.RemoteMessage
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class LivroActivity : AppCompatActivity() {
 
@@ -85,6 +90,12 @@ class LivroActivity : AppCompatActivity() {
             is ListaLivrosFragment -> fragment.adicionaLivros(livros)
             else -> exibe(ListaLivrosFragment.com(livros), false)
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun recebeMensagem(message: RemoteMessage) {
+        Log.e("post", "eventbus")
+        Toast.makeText(this, "mensagem recebida: ${message.notification}", Toast.LENGTH_LONG).show()
     }
 
     private fun exibe(fragment: Fragment, empilha: Boolean) {
