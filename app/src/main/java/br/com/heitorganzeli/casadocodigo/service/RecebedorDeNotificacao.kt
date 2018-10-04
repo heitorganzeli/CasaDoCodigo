@@ -7,13 +7,12 @@ import org.greenrobot.eventbus.EventBus
 
 class RecebedorDeNotificacao: FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage?) {
+        super.onMessageReceived(message)
         Log.e("message", "received")
         if (message == null) {
             Log.e("error", "invalid notification")
         }
 
-
         EventBus.getDefault().post(message)
-        super.onMessageReceived(message)
     }
 }

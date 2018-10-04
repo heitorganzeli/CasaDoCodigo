@@ -16,7 +16,9 @@ import br.com.heitorganzeli.casadocodigo.fragment.LoadingFragment
 import br.com.heitorganzeli.casadocodigo.fragment.ServiceErroFragment
 import br.com.heitorganzeli.casadocodigo.modelo.Livro
 import br.com.heitorganzeli.casadocodigo.server.WebClient
+import br.com.heitorganzeli.casadocodigo.service.TokenService
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.InstanceIdResult
 import com.google.firebase.messaging.RemoteMessage
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -27,6 +29,8 @@ class LivroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        TokenService().fetchContent()
 
         if (savedInstanceState == null) {
             WebClient().getLivros(0, 5)
@@ -96,6 +100,12 @@ class LivroActivity : AppCompatActivity() {
     fun recebeMensagem(message: RemoteMessage) {
         Log.e("post", "eventbus")
         Toast.makeText(this, "mensagem recebida: ${message.notification}", Toast.LENGTH_LONG).show()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun recebeToken(tokenResult: InstanceIdResult) {
+        Log.e("id", tokenResult.token)
+        Log.e("email", FirebaseAuth.getInstance().currentUser!!.email)
     }
 
     private fun exibe(fragment: Fragment, empilha: Boolean) {
