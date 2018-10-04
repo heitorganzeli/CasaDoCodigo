@@ -13,12 +13,11 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity: AppCompatActivity() {
-    lateinit var mAuth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
 
     @BindView(R.id.login_email)
     lateinit var campoEmail: EditText
@@ -38,7 +37,7 @@ class LoginActivity: AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        var currentUser = mAuth.currentUser
+        val currentUser = mAuth.currentUser
         if (currentUser != null) {
             vaiParaListaLivros()
         }
@@ -83,20 +82,15 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun trataRespostaFirebase(botao: Button, textoOriginal: String): OnCompleteListener<AuthResult> {
-        return object: OnCompleteListener<AuthResult> {
-            override fun onComplete(task: Task<AuthResult>) {
-                abilitaBotao(botao, textoOriginal)
-                if (task.isSuccessful) {
-                    Log.d("Login", "created user")
-                    vaiParaListaLivros()
-                } else {
-                    Log.w("Login", "failed to login")
-                    exibeErro(task.exception!!)
-
-                }
-
+        return OnCompleteListener {
+            abilitaBotao(botao, textoOriginal)
+            if (it.isSuccessful) {
+                Log.d("Login", "created user")
+                vaiParaListaLivros()
+            } else {
+                Log.w("Login", "failed to login")
+                exibeErro(it.exception!!)
             }
-
         }
     }
 
